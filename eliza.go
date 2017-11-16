@@ -1,15 +1,25 @@
 package main
 
 import (
+	"html/template"
 	"net/http"
 )
 
+type UsernameData struct {
+	Username string
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "index.html")
+	t, _ := template.ParseFiles("index.html")
+	t.Execute(w, UsernameData{Username: "Test"})
 }
 
 func elizaSessionHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "elizaSession.html")
+	//r.ParseForm()
+	//name := r.Form["userNameInput"]
+	//fmt.Println(name)
+	t, _ := template.ParseFiles("elizaSession.html")
+	t.Execute(w, UsernameData{Username: "Test"})
 }
 
 func main() {
