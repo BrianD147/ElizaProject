@@ -9,22 +9,28 @@
 </head>
 
 <body>
+    
     <div class="heading">
-        <h1>ElizaSession</h1>
+        <h1>Eliza</h1>
     </div>
 
-    <div class="body" >
-        <ul id="messageList">
-            
-        </ul>
+    <div class="container">
+        <form id="user-input-form">
+            <div class="well">
+                <ul id="messageList" style="list-style: none">
+                </ul>
+            </div>
 
-        <form id="messageSubmit" action="/elizaSession" method="POST">
-           
-            Enter message:<input type="text" id="messageInput" name="message" placeholder="Message"><br/>
-            <button type="submit">Submit</button>
-
+            <div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="user-input" aria-describedby="user-input-help" placeholder="Enter input">
+                    <small id="user-input-help" class="form-text text-muted">Type something here and press submit.</small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
-    </div>  
+    </div>
 
     <!-- Optional JavaScript -->
     <!--<script src="script.js"></script>-->
@@ -36,16 +42,17 @@
     <script>
         var list = document.getElementById('messageList');
 
-        $("#messageSubmit").submit(function(event) {
-            event.preventDefault();
-
-            $.get('/Eliza', { value: $('#messageInput').val() } ).done(function (data) {
-                var entry = document.createElement('li');
-                var user = document.createElement('li');
-                user.appendChild(document.createTextNode("User: " + $('#messageInput').val()));
-                list.appendChild(user);
-            })
-        });
+    $("#user-input-form").submit(function(event){
+        event.preventDefault();
+        $.get('/Eliza', {value: $('#user-input').val() } ).done(function (data) {
+            var entry = document.createElement('p');
+            var user = document.createElement('p');
+            user.appendChild(document.createTextNode("User: " + $('#user-input').val()));
+            entry.appendChild(document.createTextNode("Eliza : " + data));
+            list.appendChild(user)
+            list.appendChild(entry);
+        })
+    });
     </script>
     
 
