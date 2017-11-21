@@ -5,33 +5,29 @@ import (
 	"html/template"
 	"math/rand"
 	"net/http"
+	"regexp"
 	"time"
 )
 
-type UsernameData struct {
-	Username string
-}
-
 func handler(w http.ResponseWriter, r *http.Request) {
-
-	message := r.URL.Query().Get("messageSubmit")
-	//r.ParseForm()
-	//name := r.Form["userNameInput"]
-	fmt.Println(message)
 	t, _ := template.ParseFiles("elizaSession.html")
-	t.Execute(w, UsernameData{Username: "Test"})
+	t.Execute(w, nil)
 }
 
 func Eliza(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Eliza response")
+	message := r.URL.Query().Get("value")
+
+	if matched, _ := regexp.MatchString(`(?i).*\bfather\b.*`, message); matched {
+		response1 := []string{"Tell me more about your father?", "I am your father!", "I have a father too, he's very handsome"}
+		fmt.Fprintf(w, response1[rand.Intn(len(response1))])
+	} else {
+		response := []string{"I’m not sure what you’re trying to say. Could you explain it to me?", "How does that make you feel?", "Why do you say that?"}
+		fmt.Fprintf(w, response[rand.Intn(len(response))])
+	}
 }
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-
-	//fmt.Println("People say I look like both my mother and father.")
-	//fmt.Println(elizaResponse("People say I look like both my mother and father."))
-	fmt.Println()
 
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/Eliza", Eliza)

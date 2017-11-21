@@ -18,6 +18,9 @@
         <form id="user-input-form">
             <div class="well">
                 <ul id="messageList" style="list-style: none">
+                    <li>
+                        Hi! I'm Eliza, how can I help?
+                    </li>
                 </ul>
             </div>
 
@@ -42,17 +45,19 @@
     <script>
         var list = document.getElementById('messageList');
 
-    $("#user-input-form").submit(function(event){
-        event.preventDefault();
-        $.get('/Eliza', {value: $('#user-input').val() } ).done(function (data) {
-            var entry = document.createElement('p');
-            var user = document.createElement('p');
-            user.appendChild(document.createTextNode("User: " + $('#user-input').val()));
-            entry.appendChild(document.createTextNode("Eliza : " + data));
-            list.appendChild(user)
-            list.appendChild(entry);
-        })
-    });
+        $("#user-input-form").submit(function(event){
+            event.preventDefault();
+            $.get('/Eliza', {value: $('#user-input').val() } ).done(function (data) {
+                var entry = document.createElement('li');
+                var user = document.createElement('li');
+                user.appendChild(document.createTextNode("User: " + $("#user-input").val()));
+                entry.appendChild(document.createTextNode("Eliza : " + data));
+                list.appendChild(user)
+                list.appendChild(entry);
+            })
+            //$("#user-input").val("");
+        });
+
     </script>
     
 
