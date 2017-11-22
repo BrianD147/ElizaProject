@@ -77,18 +77,10 @@
                     </li>
                 </ul>
                 <ul id="blankList" style="list-style: none">
-                    <li class="blankResponse">
-                        
-                    </li>
-                    <li class="blankResponse">
-
-                    </li>
-                    <li class="blankResponse">
-                            
-                    </li>
-                    <li class="blankResponse">
-                            
-                    </li>
+                    <li class="blankResponse"></li>
+                    <li class="blankResponse"></li>
+                    <li class="blankResponse"></li>
+                    <li class="blankResponse"></li>
                 </ul>
             </div>
 
@@ -122,15 +114,18 @@
                 entry.appendChild(document.createTextNode(data));
                 list.appendChild(user)
                 list.appendChild(entry);
+
+                clearScroll();
             })
 
-            setTimeout(function() { 
+            function clearScroll() { 
                 window.scrollTo(0, document.body.scrollHeight);
                 $("#user-input").val("");
-             }, 10);
-
-            
+            };
+        
         });
+
+        
 
 
     </script>

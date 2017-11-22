@@ -29,8 +29,20 @@ func Eliza(w http.ResponseWriter, r *http.Request) {
 	} else if matched, _ := regexp.MatchString(`(?i).*\bbrother\b.*`, message); matched {
 		response := []string{"Tell me more about your brother", "I don't have a brother!"}
 		fmt.Fprintf(w, response[rand.Intn(len(response))])
+	} else if matched, _ := regexp.MatchString(`(?i).*i remember ?(.*)`, message); matched {
+		response := []string{"What else do you recollect?", "That's a good memory!"}
+		fmt.Fprintf(w, response[rand.Intn(len(response))])
+	} else if matched, _ := regexp.MatchString(`(?i).*\bsorry\b.*`, message); matched {
+		response := []string{"Please don't apologise.", "Apologies are not necessary.", "I've told you that apologies are not required."}
+		fmt.Fprintf(w, response[rand.Intn(len(response))])
+	} else if matched, _ := regexp.MatchString(`(?i).*\bdream\b.*`, message); matched {
+		response := []string{"What does that dream suggest to you?", "Do you dream often?", "What persons appear in your dreams?", "Do you believe that dreams have something to do with your problems?"}
+		fmt.Fprintf(w, response[rand.Intn(len(response))])
+	} else if matched, _ := regexp.MatchString(`(?i).*\bperhaps\b.*`, message); matched {
+		response := []string{"You don't seem quite certain.", "Why the uncertain tone?", "Can't you be more positive?", "You aren't sure?", "Don't you know?"}
+		fmt.Fprintf(w, response[rand.Intn(len(response))])
 	} else {
-		response := []string{"I’m not sure what you’re trying to say. Could you explain it to me?", "How does that make you feel?", "Why do you say that?"}
+		response := []string{"I’m not sure what you’re trying to say. Could you explain it to me?", "I don't quite get you!", "What do you mean?"}
 		fmt.Fprintf(w, response[rand.Intn(len(response))])
 	}
 }
