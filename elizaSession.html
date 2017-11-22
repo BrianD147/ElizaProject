@@ -6,35 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+        }
+        div.input {
+            position: fixed;
+            bottom: 0;
+            width: 80%;
+            padding: 10px;
+            background-color: white;
+        }
+        .elizaResponse {
+            border-radius: 10px;
+            background-color: #EEEEEE;
+            padding: 10px;
+            float: left;
+            clear: both;
+            margin: 5px;
+        }
+        .userResponse {
+            border-radius: 10px;
+            background-color: #2683C0;
+            color: white;
+            padding: 10px;
+            float: left;
+            clear: both;
+            margin: 5px;
+        }
+        .header {
+            text-align: center;
+        }
+        .text-muted {
+            font-size: 70%;
+            text-align: center;
+        }
+        .list {
+            border-bottom: 200px;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <div class="heading">
-        <h1>Eliza</h1>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="header">Eliza</h1>
+        </div>
+        <div class="text-muted">by Brian Doyle</div>
     </div>
 
     <div class="container">
         <form id="user-input-form">
-            <div class="well">
+            <div class="list">
                 <ul id="messageList" style="list-style: none">
-                    <li>
+                    <li class="elizaResponse">
                         Hi! I'm Eliza, how can I help?
                     </li>
                 </ul>
             </div>
 
-            <div>
+            <div class="input">
                 <div class="form-group">
                     <input type="text" class="form-control" id="user-input" aria-describedby="user-input-help" placeholder="Enter input">
-                    <small id="user-input-help" class="form-text text-muted">Type something here and press submit.</small>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </div>
         </form>
     </div>
-
     <!-- Optional JavaScript -->
     <!--<script src="script.js"></script>-->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -49,9 +89,11 @@
             event.preventDefault();
             $.get('/Eliza', {value: $('#user-input').val() } ).done(function (data) {
                 var entry = document.createElement('li');
+                entry.setAttribute('class', 'elizaResponse');
                 var user = document.createElement('li');
-                user.appendChild(document.createTextNode("User: " + $("#user-input").val()));
-                entry.appendChild(document.createTextNode("Eliza : " + data));
+                user.setAttribute('class', 'userResponse');
+                user.appendChild(document.createTextNode($("#user-input").val()));
+                entry.appendChild(document.createTextNode(data));
                 list.appendChild(user)
                 list.appendChild(entry);
             })
